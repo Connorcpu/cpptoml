@@ -284,7 +284,7 @@ inline std::shared_ptr<value<double>> base::as()
         return v;
 
     if (auto v = std::dynamic_pointer_cast<value<int64_t>>(shared_from_this()))
-        return std::make_shared<value<double>>(v->get());
+        return std::make_shared<value<double>>((double)v->get());
 
     return nullptr;
 }
@@ -1368,7 +1368,7 @@ class parser
 
             eat_numbers();
 
-            if (!is_exp && (*check_it == 'e' || *check_it == 'E'))
+            if (!is_exp && check_it != end && (*check_it == 'e' || *check_it == 'E'))
             {
                 ++check_it;
                 eat_sign();
